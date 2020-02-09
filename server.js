@@ -2,7 +2,8 @@
 var express = require("express");
 var mongojs = require("mongojs");
 var mongoose = require("mongoose");
-
+var bodyParser = require("body-parser")
+var exphbs = require("express-handlebars")
 // Require axios and cheerio. This makes the scraping possible
 var axios = require("axios");
 var cheerio = require("cheerio");
@@ -20,6 +21,8 @@ db.on("error", function(error) {
   console.log("Database Error:", error);
 });
 
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars')
 // Main route (simple Hello World Message)
 app.get("/", function(req, res) {
   res.send("Hello world");
