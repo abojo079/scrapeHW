@@ -15,32 +15,37 @@ var app = express();
 var databaseUrl = "scraper";
 var collections = ["scrapedData"];
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.set('useUnifiedTopology', true); mongoose.set('useNewUrlParser', true);
-var db = mongoose.connect(MONGODB_URI);
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://abojo079:Amang0o79**@ds063177.mlab.com:63177/heroku_wlszfm9t', {useNewUrlParser: true, useUnifiedTopology: true});
 
 
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+console.log("it works");
+});
 app.engine('handlebars', exphbs());
-app.set('view engine', 'handlebars')
+app.set('view engine', 'handlebars');
+
 // Main route (simple Hello World Message)
 app.get("/", function(req, res) {
   res.send("Hello world");
 });
 
-// Retrieve data from the db
-//app.get("/all", function(req, res) {
+//Retrieve data from the db
+app.get("/all", function(req, res) {
   // Find all results from the scrapedData collection in the db
-  //db.scrapedData.find({}, function(error, found) {
-    // Throw any errors to the console
-    //if (error) {
-    //  console.log(error);
-  //  }
+ db.scrapedData.find({}, function(error, found) {
+     //Throw any errors to the console
+  if (error) {
+    console.log(error);
+  }
     // If there are no errors, send the data to the browser as json
-  //  else {
-  //    res.json(found);
-  //  }
-//  });
-//});
+   else {
+   res.json(found);
+ }
+});
+});
 
 // Scrape data from one site and place it into the mongodb db
 app.get("/scrape", function(req, res) {
@@ -52,19 +57,19 @@ app.get("/scrape", function(req, res) {
     $(".title").each(function(i, element) {
       // Save the text and href of each link enclosed in the current element
       var title = $(element).children("a").text();
-      var link = $(element).children("a").attr("href");
+      var link = $(element).children("a").attr("href"); 
 
       // If this found element had both a title and a link
       if (title && link) {
         // Insert the data in the scrapedData db
-        db.scrapedData.insert({
+        db.scrapedData.create({
           title: title,
           link: link
         },
-        function(err, inserted) {
-          if (err) {
+       function(err, inserted) {
+         if (err) {
             // Log the error if one is encountered during the query
-            console.log(err);
+           console.log(err);
           }
           else {
             // Otherwise, log the inserted data
