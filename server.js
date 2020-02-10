@@ -17,7 +17,8 @@ var collections = ["scrapedData"];
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.set('useUnifiedTopology', true); mongoose.set('useNewUrlParser', true);
-mongoose.connect(MONGODB_URI);
+var db = mongoose.connect(MONGODB_URI);
+
 
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars')
