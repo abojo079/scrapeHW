@@ -1,6 +1,8 @@
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var bodyParser = require("body-parser");
+var exphbs = require("express-handlebars");
 
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
@@ -10,16 +12,28 @@ var cheerio = require("cheerio");
 
 // Require all models
 var db = require("./models");
+var Note = require("./models/Note.js");
+var Article = require("./models/Article.js");
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
 
-// Configure middleware
+// handlebars
+
+app.engine("handlebars", exphbs({defaultLayout: "main"}))
+app.set("view engine", "handlebars");
+
 
 // Use morgan logger for logging requests
 app.use(logger("dev"));
+
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+
+
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -39,7 +53,7 @@ app.get("/scrape", function(req, res) {
     var $ = cheerio.load(response.data);
 
     // Now, we grab every h2 within an article tag, and do the following:
-    $("article h2").each(function(i, element) {
+    $("h5").each(function(i, element) {
       // Save an empty result object
       var result = {};
 
@@ -50,6 +64,8 @@ app.get("/scrape", function(req, res) {
       result.link = $(this)
         .children("a")
         .attr("href");
+  
+
 
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
@@ -61,6 +77,16 @@ app.get("/scrape", function(req, res) {
           // If an error occurred, log it
           console.log(err);
         });
+
+     Article.create(result) 
+                    .then(function(data) {
+                        console.log(data);
+                    })
+                    .catch(function(err) {
+                        return res.json(err)
+                    })
+
+
     });
 
     // Send a message to the client
