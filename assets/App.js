@@ -1,6 +1,4 @@
-$('.carousel').carousel({
-  interval: 2500
-});
+
 
 $(".save-btn").click(function () {
   // Save the id from the button
