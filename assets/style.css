@@ -1,0 +1,37 @@
+body {
+  background-color: #f1fcfe;
+}
+
+.navbar {
+  background-color: #aaeff8;
+}
+
+.article {
+  background-color: #aaeff8;
+  margin-bottom: 1.5em;
+  border-radius: 10px;
+}
+
+.carousel {
+  width: 65%;
+  height: auto;
+  margin: 1.5em auto;
+}
+
+.btn-wrapper {
+  position: relative;
+}
+
+.save-btn,
+.comment-btn {
+  display: block;
+  margin: 1em auto;
+}
+
+#comment-input {
+  width: 100%;
+}
+
+.comments {
+  display: inline-block;
+}
