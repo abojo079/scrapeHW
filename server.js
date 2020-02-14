@@ -75,11 +75,16 @@ app.get("/saved", function (req,res) {
 // A GET route for scraping the newschoolers website
 app.get("/scrape", function (req, res) {
   // First, we grab the body of the html with axios
+
+
+
   axios.get("https://celebrityinsider.org/").then(function (response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
 
 $(".post_header search").each(function(i, element) {
+
+          var result = {};
       // Save the text and href of each link enclosed in the current element
       var title = $(element).children("a").text();
       var link = $(element).children("a").attr("href");
