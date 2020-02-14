@@ -84,13 +84,16 @@ app.get("/scrape", function (req, res) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
 
-$("a").each(function(i, element) {
+$("h5").each(function(i, element) {
 
           var result = {};
       // Save the text and href of each link enclosed in the current element
-      var title = $(element).children("a").text();
-      var link = $(element).children("a").attr("href");
-      var summary = $(element).children("a").text();
+      result.title = $(this)
+      .children("a").text();
+      
+      result.link = $(this)
+      .children("a").attr("href");
+ 
 
 
       console.log(result)
