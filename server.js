@@ -3,6 +3,7 @@ var exphbs = require("express-handlebars");
 var logger = require("morgan")
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser")
+mongoose.Promise = Promise;
 //Scraping tools
 var axios = require("axios");
 var cheerio = require("cheerio");
