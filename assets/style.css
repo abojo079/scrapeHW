@@ -1,22 +1,18 @@
 body {
-  background-color: #f1fcfe;
+  background-color: black;
 }
 
 .navbar {
-  background-color: #aaeff8;
+  background-color: red;
 }
 
 .article {
-  background-color: #aaeff8;
+  background-color: blue;
   margin-bottom: 1.5em;
   border-radius: 10px;
 }
 
-.carousel {
-  width: 65%;
-  height: auto;
-  margin: 1.5em auto;
-}
+
 
 .btn-wrapper {
   position: relative;

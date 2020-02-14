@@ -34,7 +34,7 @@ app.set("view engine", "handlebars");
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://heroku_wlszfm9t:Amang0o79**@ds063177.mlab.com:63177/heroku_wlszfm9t";
 
 // Connect to the Mongo DB
 mongoose.connect(MONGODB_URI, {
