@@ -23,7 +23,6 @@ You will need to npm install the following node modules:
 6. Axios
 
 
-
 ## Deployment
 
 Follow these instructions to deploy your app live on Heroku
