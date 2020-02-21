@@ -37,7 +37,7 @@ app.set("view engine", "handlebars");
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://abojo9300:Anemo079**@ds063177.mlab.com:63177/heroku_wlszfm9t";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://abojo9300:@ds063177.mlab.com:63177/heroku_wlszfm9t";
 
 // Connect to the Mongo DB
 mongoose.connect(MONGODB_URI, {
@@ -125,24 +125,24 @@ app.get("/articles/:id", function(req, res) {
 });
 
 // Route for saving/updating an Article's associated Comment
-//app.post("/articles/:id", function(req, res) {
+app.post("/articles/:id", function(req, res) {
   // Create a new comment and pass the req.body to the entry
- // db.Comment.create(req.body)
-  //  .then(function(dbComment) {
+  db.Comment.create(req.body)
+    .then(function(dbComment) {
       // If a Comment was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Comment
-      // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+       //{ new: true } //tells the query that we want it to return the updated User -- it returns the original by default
       // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-     /// return db.Article.findOneAndUpdate({ _id: req.params.id }, {$push:{comment: dbComment._id }}, { new: true });
-  //  })
-  //  .then(function(dbArticle) {
+     return db.Article.findOneAndUpdate({ _id: req.params.id }, {$push:{comment: dbComment._id }}, { new: true });
+   })
+   .then(function(dbArticle) {
       // If we were able to successfully update an Article, send it back to the client
-     // res.json(dbArticle);
-  //  })
-  //  .catch(function(err) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
       // If an error occurred, send it to the client
-   //   res.json(err);
-  //  });
-//});
+      res.json(err);
+    });
+});
 
 //Route for deleting comments
 //app.post("/comments/:id", function (req,res) {
