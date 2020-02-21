@@ -23,11 +23,11 @@
 
 {{!-- Saved Articles --}}
 <div class="container">
-    {{#each results}}
+    {{#each result}}
     <div class="row article data-id={{this._id}}">
         <div class="col-lg-12">
             <p>Title: {{this.title}}</p>
-            <p>Description: {{this.summary}}</p>
+          
             <a href={{this.link}} target="_blank">{{this.link}}</a>
             <button type="button" class="btn btn-primary comment-btn" data-id={{this._id}} data-toggle="modal"
                 data-target="#">Comment</button>

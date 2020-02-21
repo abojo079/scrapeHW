@@ -66,7 +66,6 @@ app.get("/", function (req, res) {
 app.get("/saved", function (req,res) {
   db.Article.find({saved: true}).sort({updatedAt: -1})
     .then(function (dbArticle) {
-      // If we were able to successfully find Articles that have been saved, send them back to the client
       res.render("saved", {
         results: dbArticle
       });
@@ -110,7 +109,7 @@ $("h5").each(function(i, element) {
 });
 
  //Route for grabbing a specific Article by id
-app.get("/article/:id", function(req, res) {
+app.get("/articles/:id", function(req, res) {
   // Using the id passed in the id parameter, find the specified article and update it's saved value to true
   db.Article.findOneAndUpdate({ _id: req.params.id }, {$set:{saved: true, updatedAt: new Date()}})
       // Populate all of the comments associated with the Article
