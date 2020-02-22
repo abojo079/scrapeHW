@@ -37,7 +37,8 @@ app.set("view engine", "handlebars");
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://abojo9300:@ds063177.mlab.com:63177/heroku_wlszfm9t";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapeHW";
+;
 
 // Connect to the Mongo DB
 mongoose.connect(MONGODB_URI, {
@@ -45,7 +46,6 @@ mongoose.connect(MONGODB_URI, {
   useUnifiedTopology: true
 
 });
-
 // Routes
 
 // Serve index.handlebars to the root route.
@@ -145,15 +145,17 @@ app.post("/articles/:id", function(req, res) {
 });
 
 //Route for deleting comments
-//app.post("/comments/:id", function (req,res) {
- // db.Comment.findByIdAndRemove({_id: req.params.id}, function(err){
-  //  if(err){
-    //  console.log(err)
-   // }
-  //})
-//})
+app.post("/comments/:id", function (req,res) {
+  db.Comment.findByIdAndRemove({_id: req.params.id}, function(err){
+    if(err){
+      console.log(err)
+   }
+  })
+})
 
 // Start the server
 app.listen(PORT, function () {
   console.log("App running on port " + PORT + "!");
 });
+
+/////
