@@ -3,7 +3,8 @@ var exphbs = require("express-handlebars");
 var logger = require("morgan")
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser")
-mongoose.Promise = Promise;
+var dotenv = require('dotenv')
+
 
 
 //Scraping tools
@@ -38,7 +39,7 @@ app.set("view engine", "handlebars");
 app.use(logger("dev"));
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapeHW";
-;
+mongoose.Promise = Promise;
 
 // Connect to the Mongo DB
 mongoose.connect(MONGODB_URI, {
@@ -47,6 +48,7 @@ mongoose.connect(MONGODB_URI, {
 
 });
 // Routes
+dotenv.config();
 
 // Serve index.handlebars to the root route.
 app.get("/", function (req, res) {
