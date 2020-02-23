@@ -38,7 +38,7 @@ app.set("view engine", "handlebars");
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapeHW";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/scrapeHW";
 mongoose.Promise = Promise;
 
 // Connect to the Mongo DB
@@ -68,7 +68,7 @@ app.get("/", function (req, res) {
 app.get("/saved", function (req,res) {
   db.Article.find({saved: true}).sort({updatedAt: -1})
     .then(function (dbArticle) {
-      res.render("saved", {
+      res.json("saved", {
         results: dbArticle
       });
     })
