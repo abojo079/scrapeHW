@@ -23,7 +23,7 @@
 
 {{!-- Saved Articles --}}
 <div class="container">
-    {{#each result}}
+    {{#each results}}
     <div class="row article data-id={{this._id}}">
         <div class="col-lg-12">
             <p>Title: {{this.title}}</p>
@@ -35,6 +35,12 @@
     </div>
     {{/each}}
 </div>
+
+
+
+
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="comment-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

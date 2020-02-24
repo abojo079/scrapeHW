@@ -2,11 +2,11 @@ var express = require("express");
 var exphbs = require("express-handlebars");
 var logger = require("morgan")
 var mongoose = require("mongoose");
-var bodyParser = require("body-parser")
-var dotenv = require('dotenv')
+var bodyParser = require("body-parser");
+var dotenv = require('dotenv');
+var Promise = require('bluebird');
 
-
-
+dotenv.config();
 //Scraping tools
 var axios = require("axios");
 var cheerio = require("cheerio");
@@ -48,7 +48,7 @@ mongoose.connect(MONGODB_URI, {
 
 });
 // Routes
-dotenv.config();
+
 
 // Serve index.handlebars to the root route.
 app.get("/", function (req, res) {
@@ -65,10 +65,12 @@ app.get("/", function (req, res) {
     });
 });
 
+
 app.get("/saved", function (req,res) {
   db.Article.find({saved: true}).sort({updatedAt: -1})
     .then(function (dbArticle) {
-      res.json("saved", {
+      // If we were able to successfully find Articles that have been saved, send them back to the client
+      res.render("saved", {
         results: dbArticle
       });
     })
