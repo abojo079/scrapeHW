@@ -38,7 +38,7 @@ app.set("view engine", "handlebars");
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://heroku_sjrkhgpm:rnfpjc7aile3u0u7eha17njs03@ds125841.mlab.com:25841/heroku_sjrkhgpm";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/scrapeHW";
 mongoose.Promise = Promise;
 
 // Connect to the Mongo DB
