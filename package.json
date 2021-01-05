@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/abojo079/scrapeHW#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.3",
     "custom-env": "^1.0.2",
     "dotenv": "^8.2.0",
